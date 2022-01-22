@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import './bootstrap.min.css'
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App>    </App>
   </React.StrictMode>,
   document.getElementById('root')
 );
@@ -15,3 +15,4 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
