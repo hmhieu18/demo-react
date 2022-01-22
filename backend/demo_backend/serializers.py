@@ -4,4 +4,4 @@ from .models import Annotator
 class AnnotatorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Annotator
-        fields = ('id', 'filename', 'points', 'image')
+        fields = ('id', 'filename', 'width', 'height', 'x', 'y', 'image')

@@ -6,6 +6,8 @@ import {
 } from "react-shape-editor";
 
 import { useState } from "react";
+import { Button } from "@material-ui/core";
+
 function arrayReplace(arr, index, item) {
   return [
     ...arr.slice(0, index),
@@ -45,6 +47,26 @@ const Editor = () => {
     reader.readAsDataURL(event.target.files[0]);
   };
 
+  const handleSubmit = () => {
+    for (let i = 0; i < items.length; i++) {
+      let uploadData = new FormData();
+      uploadData.append("filename", items[i].id);
+      uploadData.append("width", items[i].width);
+      uploadData.append("height", items[i].height);
+      uploadData.append("x", items[i].x);
+      uploadData.append("y", items[i].y);
+
+      fetch("http://127.0.0.1:8000/annotations/", {
+        method: "POST",
+        body: uploadData,
+      })
+        .then((res) => console.log(res))
+        .catch((error) => console.log(error));
+    }
+  };
+
+  const handleCleanCanva = () => {};
+
   return (
     <div>
       <input
@@ -54,14 +76,12 @@ const Editor = () => {
         accept="image/*"
         onChange={fileChangedHandler}
       />
-      {/* <img
-          src={file}
-          alt={''}
-          width="400"
-          height="400"
-          text-align="left"
-          style={{ display: 'block' }}
-        /> */}
+      <div>
+        <Button>Clear Canvas</Button>
+
+        <Button onClick={handleSubmit}>Submit</Button>
+      </div>
+
       <ShapeEditor vectorWidth={vectorWidth} vectorHeight={vectorHeight}>
         <ImageLayer
           // Photo by Sarah Gualtieri on Unsplash
@@ -117,4 +137,4 @@ const Editor = () => {
   );
 };
 
-export default Editor
+export default Editor;
